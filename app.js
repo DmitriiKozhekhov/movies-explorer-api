@@ -20,11 +20,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(requestLogger);
 app.use(cors);
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
+
 mongoose.connect('mongodb://localhost:27017/moviesdb', {
   useNewUrlParser: true,
 });
