@@ -10,7 +10,7 @@ router.post('/signin', validationOfLogin, login);
 router.post('/signup', validationOfAuth, createUser);
 router.use(auth);
 
-router.post('/signout', deleteToken);
+router.get('/signout', deleteToken);
 router.use('/users', require('./users'));
 router.use('/movies', require('./movies'));
 

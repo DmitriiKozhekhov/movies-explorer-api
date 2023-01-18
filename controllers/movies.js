@@ -51,12 +51,12 @@ module.exports.createMovie = (req, res, next) => {
 };
 
 module.exports.deleteMovie = (req, res, next) => {
-  Movies.findById(req.params.movieId).orFail(() => new NotFound('Фильм не найден'))
+  Movies.findOne({ movieId: req.params.movieId, owner: req.user._id }).orFail(() => new NotFound('Фильм не найден'))
     .then((movie) => {
       if (movie.owner.toString() !== req.user._id) {
         throw new Forbidden('Вы не можете удалить не свой фильм');
       }
-      return Movies.findByIdAndRemove(req.params.movieId)
+      return Movies.findOneAndRemove({ movieId: req.params.movieId })
         .then(() => {
           res.send({ data: movie });
         });
