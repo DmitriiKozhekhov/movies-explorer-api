@@ -56,7 +56,7 @@ module.exports.deleteMovie = (req, res, next) => {
       if (movie.owner.toString() !== req.user._id) {
         throw new Forbidden('Вы не можете удалить не свой фильм');
       }
-      return Movies.findOneAndRemove({ movieId: req.params.movieId })
+      return Movies.findOneAndRemove({ movieId: req.params.movieId, owner: req.user._id })
         .then(() => {
           res.send({ data: movie });
         });
